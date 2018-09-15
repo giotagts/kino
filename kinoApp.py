@@ -1,4 +1,6 @@
 import random
+from tkinter import*
+
 #yields
 y1={0 : 0, 1 : 2.5}
 y2={0 : 0, 1 : 1, 2 : 5}
@@ -18,6 +20,13 @@ while len(results)<12:
     n = random.randrange(1, 80)
     if n not in results:
         results.append(n)
+res=Tk()
+res.geometry("600x460")
+res.title("Results")
+resLabel0=Label(res, text="Results \n", font=("Comic Sans", 30,'bold'))
+resLabel=Label(res, text=" ".join(str(e) for e in results), font=("Comic Sans", 18,'bold'))
+resLabel0.pack(side=TOP)
+resLabel.pack(side=TOP)
 while True:
     try:
         gn=input('How many numbers will you guess? ')
