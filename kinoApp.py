@@ -1,5 +1,6 @@
 import random
-from tkinter import*
+import tkinter
+import datetime
 
 #yields
 y1={0 : 0, 1 : 2.5}
@@ -20,13 +21,7 @@ while len(results)<12:
     n = random.randrange(1, 80)
     if n not in results:
         results.append(n)
-res=Tk()
-res.geometry("600x460")
-res.title("Results")
-resLabel0=Label(res, text="Results \n", font=("Comic Sans", 30,'bold'))
-resLabel=Label(res, text=" ".join(str(e) for e in results), font=("Comic Sans", 18,'bold'))
-resLabel0.pack(side=TOP)
-resLabel.pack(side=TOP)
+#print(results)
 while True:
     try:
         gn=input('How many numbers will you guess? ')
@@ -38,7 +33,7 @@ while True:
     except ValueError:
         print('Enter an integer')
         continue
-
+print("Wins\n")
 current_yield=eval('y'+str(gn))
 for k, v in current_yield.items():
     print(k,v)
@@ -64,19 +59,36 @@ while True:
         print('Enter a float')
         continue
 c=0
+to_print=""
+
 for f in my_guess:
     if f in results:
         c+=1
 win_money=current_yield.get(c)*money
 if win_money>0:
-    print('Congratulations!')
-    print('You win %1.2f euros' %win_money)
+    to_print+='Congratulations!'
+    to_print+='You win %1.2f euros' % win_money
+ #   to_print+=str(win_money)
 
     
 else:
-    print('You are a looser!')
+    to_print+='You are a looser!'
     
-print('Results: ', results)
 
-                   
+date_time=datetime.datetime.now().strftime("%d-%m-%y   %H-%M")
+
+date_time=str(date_time)
+
+res=tkinter.Tk()
+res.geometry("600x460")
+res.title("Results")
+resLabelTit=tkinter.Label(res, text="Results", font=("Comic Sans Ms", 30,'bold'))
+resLabelDat=tkinter.Label(res, text="Datetime: "+date_time+" \n", font=("Comic Sans Ms", 12))
+resLabelRes=tkinter.Label(res, text=" ".join(str(e) for e in results), font=("Comic Sans Ms", 18,'bold'))
+resLabelMes=tkinter.Label(res, text=" \n\n\n"+to_print, font=("Comic Sans Ms", 18,'bold'))
+resLabelTit.pack()
+resLabelDat.pack()
+resLabelRes.pack()
+resLabelMes.pack()
+res.mainloop()                   
                    
